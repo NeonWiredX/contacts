@@ -70,7 +70,7 @@ class ContactController extends Controller
     {
         $query = $this->createQuery($request);
 
-        $total = $query->count();
+        $total = (clone $query)->offset(0)->limit(1000)->count();
         return [
             'data' => $query->get(),
             'total' => $total

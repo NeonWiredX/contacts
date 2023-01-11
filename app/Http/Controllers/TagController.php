@@ -16,7 +16,7 @@ class TagController extends Controller
             ->offset($request->input('offset',0));
 
 
-        $total = $query->count();
+        $total = (clone $query)->offset(0)->limit(1000)->count();
         return [
             'data' => $query->get(),
             'total' => $total
