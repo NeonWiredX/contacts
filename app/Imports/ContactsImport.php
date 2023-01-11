@@ -44,15 +44,17 @@ class ContactsImport implements WithEvents, WithStartRow, OnEachRow
         $row      = $row->toArray();
 
         $tagsList = $row[6] ?? '';
-        $tagsList = array_map(function ($v) {
-            return trim($v);
-        },
-            explode(',', $tagsList));
-
-        $tagList = [];
         if (!empty($tagsList)){
-            foreach ($tagsList as $tagEntity){
-                $tagList[] = Tag::firstOrCreate(['text'=>$tagEntity]);
+            $tagsList = array_map(function ($v) {
+                return trim($v);
+            },
+                explode(',', $tagsList));
+
+            $tagList = [];
+            if (!empty($tagsList)){
+                foreach ($tagsList as $tagEntity){
+                    $tagList[] = Tag::firstOrCreate(['text'=>$tagEntity]);
+                }
             }
         }
 

@@ -43,6 +43,26 @@ class ContactController extends Controller
                 }
             });
         }
+        $columns = ['firstname','lastname','patrony','email','phone'];
+        foreach ($columns as $column){
+            $value = $request->input($column,null);
+            if (!empty($value)){
+                echo $column.":".$value;
+                $query->where($column,'ILIKE','%'.$value.'%');
+            }
+        }
+        $columns = ['firstname','lastname','patrony','email','phone'];
+        if ($value = $request->input('search',null)){
+            $query->where(array_shift($columns), 'ILIKE', '%' . $value . '%');
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'ilike', '%' . $value . '%');
+            }
+
+            $query->orWhereHas('tags', function ($query) use ($value) {
+                $query->where('text', 'ILIKE', '%' . $value . '%');
+
+            });
+        }
         return $query;
     }
 

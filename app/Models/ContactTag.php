@@ -17,7 +17,7 @@ class ContactTag extends Model
 
     public function tag()
     {
-        //return $this->belongsTo(Tag::class,'tag_id','id');
+        return $this->belongsTo(Tag::class,'tag_id','id');
     }
 
     public function contact()
