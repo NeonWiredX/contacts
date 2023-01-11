@@ -37,9 +37,9 @@ class ContactController extends Controller
         $tagNames = $request->input('tag', null);
         if ($tagNames) {
             $query->whereHas('tags', function ($query) use ($tagNames) {
-                $query->where('text', 'ILIKE', '%' . array_shift($tagNames) . '%');
+                $query->where('text', 'LIKE', '%' . array_shift($tagNames) . '%');
                 foreach ($tagNames as $tagName) {
-                    $query->orWhere('text', 'ilike', '%' . $tagName . '%');
+                    $query->orWhere('text', 'like', '%' . $tagName . '%');
                 }
             });
         }
@@ -48,18 +48,18 @@ class ContactController extends Controller
             $value = $request->input($column,null);
             if (!empty($value)){
                 echo $column.":".$value;
-                $query->where($column,'ILIKE','%'.$value.'%');
+                $query->where($column,'LIKE','%'.$value.'%');
             }
         }
         $columns = ['firstname','lastname','patrony','email','phone'];
         if ($value = $request->input('search',null)){
-            $query->where(array_shift($columns), 'ILIKE', '%' . $value . '%');
+            $query->where(array_shift($columns), 'LIKE', '%' . $value . '%');
             foreach ($columns as $column) {
-                $query->orWhere($column, 'ilike', '%' . $value . '%');
+                $query->orWhere($column, 'like', '%' . $value . '%');
             }
 
             $query->orWhereHas('tags', function ($query) use ($value) {
-                $query->where('text', 'ILIKE', '%' . $value . '%');
+                $query->where('text', 'LIKE', '%' . $value . '%');
 
             });
         }
