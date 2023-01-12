@@ -11,7 +11,7 @@ class Authenticate extends Middleware
         $token = $request->bearerToken();
 
         $appPass = env("APP_PASSWORD", "");
-        if (empty($appPass) || $token!==$appPass){
+        if (empty($appPass) || $token!==$appPass ){
             return response([
                                 'message' => 'Unauthenticated'
                             ], 403);
