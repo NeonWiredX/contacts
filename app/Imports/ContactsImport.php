@@ -44,6 +44,7 @@ class ContactsImport implements WithEvents, WithStartRow, OnEachRow
         $row      = $row->toArray();
 
         $tagsList = $row[6] ?? '';
+        $tagList = [];
         if (!empty($tagsList)){
             $tagsList = array_map(function ($v) {
                 return trim($v);
