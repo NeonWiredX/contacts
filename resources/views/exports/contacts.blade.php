@@ -26,14 +26,14 @@
             @else
                 {{$contact->firstname}}
             @endempty
-        </td>        
+        </td>
+	<td>        
             @empty($contact->lastname)
 
             @else
                 {{$contact->lastname}}
             @endempty
-            </td>
-        <td>
+        </td>
     <td>
         @empty($contact->patrony)
 
